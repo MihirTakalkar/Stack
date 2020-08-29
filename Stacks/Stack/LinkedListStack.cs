@@ -22,8 +22,9 @@ namespace Stack
 
         public T Pop()
         {
+            T storedValue = Peek();
             list.RemoveFirst();
-            return Peek();
+            return storedValue;
         }
 
         public T Peek()
