@@ -30,7 +30,9 @@ namespace Stack
             //    Console.Write($"{poppedValue}->");
             //}
 
-            ArrayBackedQueue<int> queue = new ArrayBackedQueue<int>();
+
+            // ArrayBackedQueue<int> queue = new ArrayBackedQueue<int>();
+            LinkedListQueue<int> queue = new LinkedListQueue<int>();
             for (int i = 0; i <= 4; i++)
             {
                 queue.Enqueue(i);

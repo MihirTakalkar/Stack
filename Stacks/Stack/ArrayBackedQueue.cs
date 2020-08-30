@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 
 namespace Stack
 {
+    [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
     class ArrayBackedQueue<T>
     {
         public int Count { get; private set; }
@@ -25,13 +27,13 @@ namespace Stack
 
         public T Dequeue()
         {
-            if(Count == 0)
+            if (Count == 0)
             {
-                throw new Exception("Dequeuing when its empty");
+                throw new Exception("Dequeuing when its empty.");
             }
 
             T value = Peek();
-            if(headIndex != data.Length - 1)
+            if (headIndex != data.Length - 1)
             {
                 headIndex++;
             }
@@ -46,13 +48,13 @@ namespace Stack
 
         public T Peek()
         {
-            return data[headIndex]; 
+            return data[headIndex];
         }
 
         private T[] Resize()
         {
             int resizeLength = data.Length * 2;
-            if(resizeLength == 0)
+            if (resizeLength == 0)
             {
                 resizeLength = 1;
             }
@@ -68,10 +70,23 @@ namespace Stack
 
         private void PerformResizeIfNeeded()
         {
-            if(Count == data.Length)
+            if (Count == data.Length)
             {
                 data = Resize();
             }
+        }
+
+        private string GetDebuggerDisplay()
+        {
+
+            List<T> values = new List<T>();
+
+            for (int i = headIndex; i < data.Length; i++)
+            {
+                values.Add(data[i]);
+            }
+            string output = $"Count: {Count}, Values: {string.Join(',', values)}";
+            return output;
         }
     }
 }
